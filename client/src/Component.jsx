@@ -3,7 +3,8 @@ import GraphiQL from "graphiql";
 import GraphiQLExplorer from "graphiql-explorer";
 import { buildClientSchema, getIntrospectionQuery } from "graphql";
 
-const URL = "https://swapi-graphql.netlify.com/.netlify/functions/index";
+// const URL = "https://swapi-graphql.netlify.com/.netlify/functions/index";
+const URL = "/graphql?";
 
 function fetcher(graphQLParams) {
   return fetch(URL, {
@@ -45,6 +46,7 @@ export default () => {
         fetcher={fetcher}
         defaultQuery={""}
         query={query}
+        onEditQuery={setQuery}
       />
     </div>
   );
