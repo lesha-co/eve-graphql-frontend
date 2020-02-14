@@ -1,4 +1,5 @@
 type Query {
+  # List of all systems in EVE
   allSystems(first: Int!): [EVESystemConnection!]!
   system(system_id: String!): EVESystem
 }
@@ -21,9 +22,19 @@ type EVEPlanet {
   system: EVESystem!
   type_id: Int! # TODO: planet types
 }
+type EVEMoon {
+  moon_id: ID!
+  name: String!
+  position: EVEPositionXYZ!
+  system_id: Int! # TODO: this
+}
+type EVESystemPlanetMoon {
+  moon_id: Int!
+  moon: EVEMoon!
+}
 
 type EVESystemPlanet {
-  moons: [Int!]! # TODO: moons
+  moons: [EVESystemPlanetMoon]! # TODO: moons
   planet: EVEPlanet!
   planet_id: Int!
 }

@@ -3,9 +3,11 @@ const systemsURI = () => 'universe/systems/';
 const systemURI = (system_id: string) => `universe/systems/${system_id}/`;
 const planetURL = (planet_id: string) => `universe/planets/${planet_id}/`;
 const stargateURL = (stargate_id: string) => `universe/stargates/${stargate_id}/`;
+const moonURL = (moon_id: string) => `universe/moons/${moon_id}/`;
 
 const system = (id: string) => request(systemURI(id));
 const stargate = (id: string) => request(stargateURL(id));
+const planet = (id: string) => request(planetURL(id));
 const planet = (id: string) => request(planetURL(id));
 export const resolvers = {
   Query: {
@@ -35,6 +37,10 @@ export const resolvers = {
   EVESystemPlanet: {
     planet: (self: any) => planet(self.planet_id),
   },
+  EVESystemPlanetMoon: {
+    moon_id: (id: any) => id,
+    moon: 
+  }
   EVEStargate: {
     destination_system: (self: any) => system(self.destination.system_id),
     destination_stargate: (self: any) => stargate(self.destination.stargate_id),
