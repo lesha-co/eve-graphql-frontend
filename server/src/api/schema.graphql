@@ -1,0 +1,49 @@
+type Query {
+  allSystemIDs: [Int!]!
+  system(system_id: String!): EVESystem
+}
+
+type EVEPositionXYZ {
+  x: String!
+  y: String!
+  z: String!
+}
+
+type EVEPlanet {
+  name: String!
+  planet_id: ID!
+  position: EVEPositionXYZ!
+  system: EVESystem!
+  type_id: Int! # TODO: planet types
+}
+
+type EVESystemPlanet {
+  moons: [Int!]! # TODO: moons
+  planet: EVEPlanet!
+}
+type EVESystemStargate {
+  stargate: EVEStargate!
+}
+
+type EVEStargate {
+  destination_system: EVESystem!
+  destination_stargate: EVEStargate!
+  name: String!
+  position: EVEPositionXYZ!
+  stargate_id: ID!
+  system: EVESystem!
+  type_id: Int!
+}
+
+type EVESystem {
+  name: String!
+  constellation_id: Int! # TODO: constellations
+  planets: [EVESystemPlanet!]
+  position: EVEPositionXYZ!
+  security_class: String!
+  security_status: Float!
+  security_status_rough: Float!
+  star_id: Int! # TODO: stars
+  stargates: [EVESystemStargate!]!
+  system_id: ID!
+}
