@@ -10,7 +10,9 @@ const planet = (id: string) => request(planetURL(id));
 export const resolvers = {
   Query: {
     allSystemIDs: () => request(systemsURI()),
-    system: (_source: any, { system_id }: { system_id: string }) => system(system_id),
+    system: (_source: any, { system_id }: { system_id: string }) => {
+      return system(system_id);
+    },
   },
   EVEPositionXYZ: {
     x: (self: any) => self.x.toString(),
@@ -29,6 +31,7 @@ export const resolvers = {
     system: (self: any) => system(self.system_id),
   },
   EVESystemStargate: {
+    stargate_id: (id: any) => id,
     stargate: (id: any) => stargate(id),
   },
   EVESystem: {

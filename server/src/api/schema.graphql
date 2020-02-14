@@ -20,9 +20,11 @@ type EVEPlanet {
 type EVESystemPlanet {
   moons: [Int!]! # TODO: moons
   planet: EVEPlanet!
+  planet_id: Int!
 }
 type EVESystemStargate {
   stargate: EVEStargate!
+    : Int!
 }
 
 type EVEStargate {
