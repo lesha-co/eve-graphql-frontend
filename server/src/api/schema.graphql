@@ -24,7 +24,7 @@ type EVESystemPlanet {
 }
 type EVESystemStargate {
   stargate: EVEStargate!
-    : Int!
+  stargate_id: Int!
 }
 
 type EVEStargate {
