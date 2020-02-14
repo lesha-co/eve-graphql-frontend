@@ -9,10 +9,20 @@ const stargate = (id: string) => request(stargateURL(id));
 const planet = (id: string) => request(planetURL(id));
 export const resolvers = {
   Query: {
-    allSystemIDs: () => request(systemsURI()),
+    allSystems: async (_source: any, { first }: { first?: number }) => {
+      const ids: number[] = await request(systemsURI());
+      if (first !== undefined) {
+        return ids.slice(0, first);
+      }
+      return ids;
+    },
     system: (_source: any, { system_id }: { system_id: string }) => {
       return system(system_id);
     },
+  },
+  EVESystemConnection: {
+    system_id: (id: any) => id,
+    system: (id: any) => system(id),
   },
   EVEPositionXYZ: {
     x: (self: any) => self.x.toString(),

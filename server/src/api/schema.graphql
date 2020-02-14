@@ -1,6 +1,11 @@
 type Query {
-  allSystemIDs: [Int!]!
+  allSystems(first: Int!): [EVESystemConnection!]!
   system(system_id: String!): EVESystem
+}
+
+type EVESystemConnection {
+  system: EVESystem
+  system_id: ID!
 }
 
 type EVEPositionXYZ {
