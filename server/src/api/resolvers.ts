@@ -16,8 +16,9 @@ export const resolvers = {
       }
       return ids;
     },
-    system: (_source: any, { system_id }: { system_id: string }) => {
-      return system(system_id);
+    system: async (_source: any, { system_id }: { system_id: string }) => {
+      const s: any = await system(system_id);
+      return s;
     },
   },
   EVESystemConnection: {
@@ -30,17 +31,17 @@ export const resolvers = {
     z: (self: any) => self.z.toString(),
   },
   EVEPlanet: {
-    system: (self: any) => system(self.system_id), // todo
+    systemConnection: (self: any) => self.system_id,
   },
-  EVESystemPlanet: {
+  EVEPlanetConnection: {
     planet: (self: any) => planet(self.planet_id),
   },
   EVEStargate: {
-    destination_system: (self: any) => system(self.destination.system_id),
-    destination_stargate: (self: any) => stargate(self.destination.stargate_id),
-    system: (self: any) => system(self.system_id),
+    destinationSystemConnection: (self: any) => self.destination.system_id,
+    destinationStargate: (self: any) => self.destination.stargate_id,
+    systemConnection: (self: any) => self.system_id,
   },
-  EVESystemStargate: {
+  EVEStargateConnection: {
     stargate_id: (id: any) => id,
     stargate: (id: any) => stargate(id),
   },

@@ -1,11 +1,11 @@
 type Query {
-  allSystems(first: Int!): [EVESystemConnection!]!
+  allSystems(first: Int): [EVESystemConnection!]!
   system(system_id: String!): EVESystem
 }
 
 type EVESystemConnection {
-  system: EVESystem
-  system_id: ID!
+  system: EVESystem!
+  system_id: Int!
 }
 
 type EVEPositionXYZ {
@@ -18,39 +18,39 @@ type EVEPlanet {
   name: String!
   planet_id: ID!
   position: EVEPositionXYZ!
-  system: EVESystem!
+  systemConnection: EVESystemConnection!
   type_id: Int! # TODO: planet types
 }
 
-type EVESystemPlanet {
+type EVEPlanetConnection {
   moons: [Int!]! # TODO: moons
   planet: EVEPlanet!
   planet_id: Int!
 }
-type EVESystemStargate {
+type EVEStargateConnection {
   stargate: EVEStargate!
   stargate_id: Int!
 }
 
 type EVEStargate {
-  destination_system: EVESystem!
-  destination_stargate: EVEStargate!
+  destinationSystemConnection: EVESystemConnection!
+  destinationStargate: EVEStargateConnection!
   name: String!
   position: EVEPositionXYZ!
   stargate_id: ID!
-  system: EVESystem!
+  systemConnection: EVESystemConnection!
   type_id: Int!
 }
 
 type EVESystem {
   name: String!
   constellation_id: Int! # TODO: constellations
-  planets: [EVESystemPlanet!]
+  planets: [EVEPlanetConnection!]
   position: EVEPositionXYZ!
   security_class: String!
   security_status: Float!
   security_status_rough: Float!
   star_id: Int! # TODO: stars
-  stargates: [EVESystemStargate!]!
+  stargates: [EVEStargateConnection!] # null for nullsec systems?
   system_id: ID!
 }
