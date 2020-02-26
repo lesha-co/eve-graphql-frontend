@@ -1,0 +1,15 @@
+type EVESystemConnection {
+  system: EVESystem!
+  system_id: Int!
+}
+
+type EVEPlanetConnection {
+  moons: [Int!]! # TODO: moons
+  planet: EVEPlanet!
+  planet_id: Int!
+}
+
+type EVEStargateConnection {
+  stargate: EVEStargate!
+  stargate_id: Int!
+}

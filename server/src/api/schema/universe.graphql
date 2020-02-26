@@ -1,13 +1,3 @@
-type Query {
-  allSystems(first: Int): [EVESystemConnection!]!
-  system(system_id: String!): EVESystem
-}
-
-type EVESystemConnection {
-  system: EVESystem!
-  system_id: Int!
-}
-
 type EVEPositionXYZ {
   x: String!
   y: String!
@@ -20,16 +10,6 @@ type EVEPlanet {
   position: EVEPositionXYZ!
   systemConnection: EVESystemConnection!
   type_id: Int! # TODO: planet types
-}
-
-type EVEPlanetConnection {
-  moons: [Int!]! # TODO: moons
-  planet: EVEPlanet!
-  planet_id: Int!
-}
-type EVEStargateConnection {
-  stargate: EVEStargate!
-  stargate_id: Int!
 }
 
 type EVEStargate {

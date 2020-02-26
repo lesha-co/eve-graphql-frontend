@@ -1,0 +1,6 @@
+type Query {
+  # List of all systems in Universe
+  allSystems(first: Int): [EVESystemConnection!]!
+  # Details about a system
+  system(system_id: String!): EVESystem
+}

@@ -4,8 +4,15 @@ import express from 'express';
 import fs from 'fs';
 import { resolvers } from './api/resolvers';
 
+const typeDefs = [
+  './src/api/schema/query.graphql',
+  './src/api/schema/connections.graphql',
+  // './src/api/schema/dogma.graphql',
+  './src/api/schema/universe.graphql',
+].map((x) => fs.readFileSync(x, { encoding: 'utf-8' }));
+
 const schema = makeExecutableSchema({
-  typeDefs: fs.readFileSync('./src/api/schema.graphql', { encoding: 'utf-8' }),
+  typeDefs,
   resolvers,
 });
 
