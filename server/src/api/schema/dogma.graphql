@@ -10,3 +10,10 @@ type EVEDogmaAttribute {
   stackable: Boolean!
   unit_id: Int
 }
+
+type EVEDogmaEffect {
+  effect_id: Int!
+  description: String!
+  name: String!
+  # TODO: the rest https://esi.evetech.net/ui/#/Dogma/get_dogma_effects_effect_id
+}

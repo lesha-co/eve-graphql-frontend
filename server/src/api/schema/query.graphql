@@ -9,4 +9,6 @@ type Query {
 
   allDogmaAttributes(first: Int): [EVEDogmaAttributeConnection!]!
   dogmaAttribute(attribute_id: String!): EVEDogmaAttribute
+  allDogmaEffects(first: Int): [EVEDogmaEffectConnection!]!
+  dogmaEffect(effect_id: String!): EVEDogmaEffect
 }

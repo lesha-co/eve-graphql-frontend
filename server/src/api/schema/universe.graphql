@@ -39,7 +39,7 @@ type EVEUniverseType {
   capacity: Float!
   description: String!
   dogma_attributes: [EVEUniverseTypeDogmaAttributeConnection!]!
-  # dogma_effects
+  dogma_effects: [EVEUniverseTypeDogmaEffectConnection!]!
   graphic_id: Int!
   group_id: Int!
   icon_id: Int!

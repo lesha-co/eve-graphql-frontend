@@ -18,10 +18,20 @@ type EVEDogmaAttributeConnection {
   attribute_id: Int!
   attribute: EVEDogmaAttribute!
 }
+type EVEDogmaEffectConnection {
+  effect_id: Int!
+  effect: EVEDogmaEffect!
+}
+
 type EVEUniverseTypeDogmaAttributeConnection {
   attribute_id: Int!
   attribute: EVEDogmaAttribute!
   value: Float!
+}
+type EVEUniverseTypeDogmaEffectConnection {
+  effect_id: Int!
+  effect: EVEDogmaEffect!
+  is_default: Boolean!
 }
 
 type EVEUniverseTypeConnection {
