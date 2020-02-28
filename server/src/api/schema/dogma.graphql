@@ -1,0 +1,12 @@
+type EVEDogmaAttribute {
+  attribute_id: Int!
+  default_value: Float!
+  description: String!
+  display_name: String!
+  high_is_good: Boolean!
+  icon_id: Int!
+  name: String!
+  published: Boolean
+  stackable: Boolean!
+  unit_id: Int
+}

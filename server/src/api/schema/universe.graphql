@@ -34,3 +34,22 @@ type EVESystem {
   stargates: [EVEStargateConnection!] # null for nullsec systems?
   system_id: ID!
 }
+
+type EVEUniverseType {
+  capacity: Float!
+  description: String!
+  dogma_attributes: [EVEUniverseTypeDogmaAttributeConnection!]!
+  # dogma_effects
+  graphic_id: Int!
+  group_id: Int!
+  icon_id: Int!
+  market_group_id: Int!
+  mass: Float!
+  name: String!
+  packaged_volume: Float!
+  portion_size: Int!
+  published: Boolean
+  radius: Float!
+  type_id: Int!
+  volume: Float!
+}

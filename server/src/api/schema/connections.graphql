@@ -13,3 +13,18 @@ type EVEStargateConnection {
   stargate: EVEStargate!
   stargate_id: Int!
 }
+
+type EVEDogmaAttributeConnection {
+  attribute_id: Int!
+  attribute: EVEDogmaAttribute!
+}
+type EVEUniverseTypeDogmaAttributeConnection {
+  attribute_id: Int!
+  attribute: EVEDogmaAttribute!
+  value: Float!
+}
+
+type EVEUniverseTypeConnection {
+  type_id: Int!
+  type: EVEUniverseType!
+}

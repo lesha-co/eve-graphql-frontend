@@ -7,7 +7,7 @@ import { resolvers } from './api/resolvers';
 const typeDefs = [
   './src/api/schema/query.graphql',
   './src/api/schema/connections.graphql',
-  // './src/api/schema/dogma.graphql',
+  './src/api/schema/dogma.graphql',
   './src/api/schema/universe.graphql',
 ].map((x) => fs.readFileSync(x, { encoding: 'utf-8' }));
 

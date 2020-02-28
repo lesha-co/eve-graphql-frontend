@@ -3,4 +3,10 @@ type Query {
   allSystems(first: Int): [EVESystemConnection!]!
   # Details about a system
   system(system_id: String!): EVESystem
+
+  allUniverseTypes(first: Int): [EVEUniverseTypeConnection!]!
+  universeType(type_id: Int!): EVEUniverseType
+
+  allDogmaAttributes(first: Int): [EVEDogmaAttributeConnection!]!
+  dogmaAttribute(attribute_id: String!): EVEDogmaAttribute
 }
