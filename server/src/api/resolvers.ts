@@ -8,7 +8,7 @@ const moonURL = (moon_id: string) => `universe/moons/${moon_id}/`;
 const system = (id: string) => request(systemURI(id));
 const stargate = (id: string) => request(stargateURL(id));
 const planet = (id: string) => request(planetURL(id));
-const planet = (id: string) => request(planetURL(id));
+const moon = (id: string) => request(moonURL(id));
 export const resolvers = {
   Query: {
     allSystems: async (_source: any, { first }: { first?: number }) => {
@@ -39,8 +39,8 @@ export const resolvers = {
   },
   EVESystemPlanetMoon: {
     moon_id: (id: any) => id,
-    moon: 
-  }
+    moon: (id: any) => stargate(id),
+  },
   EVEStargate: {
     destination_system: (self: any) => system(self.destination.system_id),
     destination_stargate: (self: any) => stargate(self.destination.stargate_id),
