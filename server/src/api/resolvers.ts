@@ -101,10 +101,11 @@ export const resolvers = {
   EVEPlanetConnection: {
     planet: (self: any) => universePlanet(self.planet_id),
   },
-  EVESystemPlanetMoon: {
-    moon_id: (id: any) => id,
-    moon: (id: any) => universeMoons(id),
-  },
+  // TODO: moons
+  // EVESystemPlanetMoon: {
+  //   moon_id: (id: any) => id,
+  //   moon: (id: any) => universeMoons(id),
+  // },
   EVEStargate: {
     destinationSystemConnection: (self: any) => self.destination.system_id,
     destinationStargate: (self: any) => self.destination.stargate_id,
