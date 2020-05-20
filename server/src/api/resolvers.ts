@@ -1,30 +1,94 @@
 import { request } from './request';
-const systemsURI = () => 'universe/systems/';
-const systemURI = (system_id: string) => `universe/systems/${system_id}/`;
-const planetURL = (planet_id: string) => `universe/planets/${planet_id}/`;
-const stargateURL = (stargate_id: string) => `universe/stargates/${stargate_id}/`;
-const moonURL = (moon_id: string) => `universe/moons/${moon_id}/`;
+const dogmaAttributesURL = () => 'dogma/attributes/';
+const dogmaAttributeURL = (attr_id: string) => `dogma/attributes/${attr_id}`;
+const dogmaEffectsURL = () => 'dogma/effects/';
+const dogmaEffectURL = (effect_id: string) => `dogma/effects/${effect_id}`;
 
-const system = (id: string) => request(systemURI(id));
-const stargate = (id: string) => request(stargateURL(id));
-const planet = (id: string) => request(planetURL(id));
-const moon = (id: string) => request(moonURL(id));
+const universeSystemsURL = () => 'universe/systems/';
+const universeSystemURL = (system_id: string) => `universe/systems/${system_id}/`;
+const universeTypesURL = () => 'universe/types/';
+const universeTypeURL = (type_id: string) => `universe/types/${type_id}/`;
+const universePlanetURL = (planet_id: string) => `universe/planets/${planet_id}/`;
+const universeStargateURL = (stargate_id: string) => `universe/stargates/${stargate_id}/`;
+const universeMoonsURL = (moon_id: string) => `universe/moons/${moon_id}/`;
+
+const dogmaEffect = (id: string) => request(dogmaEffectURL(id));
+const dogmaAttribute = (id: string) => request(dogmaAttributeURL(id));
+const universeSystem = (id: string) => request(universeSystemURL(id));
+const universeStargate = (id: string) => request(universeStargateURL(id));
+const universePlanet = (id: string) => request(universePlanetURL(id));
+const universeType = (id: string) => request(universeTypeURL(id));
+const universeMoons = (id: string) => request(universeMoonsURL(id));
 export const resolvers = {
   Query: {
     allSystems: async (_source: any, { first }: { first?: number }) => {
-      const ids: number[] = await request(systemsURI());
+      const ids: number[] = await request(universeSystemsURL());
       if (first !== undefined) {
         return ids.slice(0, first);
       }
       return ids;
     },
-    system: (_source: any, { system_id }: { system_id: string }) => {
-      return system(system_id);
+    system: async (_source: any, { system_id }: { system_id: string }) => {
+      const s: any = await universeSystem(system_id);
+      return s;
     },
+
+    allUniverseTypes: async (_source: any, { first }: { first?: number }) => {
+      const ids: number[] = await request(universeTypesURL());
+      if (first !== undefined) {
+        return ids.slice(0, first);
+      }
+      return ids;
+    },
+
+    universeType: async (_source: any, { type_id }: { type_id: string }) => {
+      const s: any = await universeType(type_id);
+      return s;
+    },
+
+    allDogmaAttributes: async (_source: any, { first }: { first?: number }) => {
+      const ids: number[] = await request(dogmaAttributesURL());
+      if (first !== undefined) {
+        return ids.slice(0, first);
+      }
+      return ids;
+    },
+
+    dogmaAttribute: async (_source: any, { attribute_id }: { attribute_id: string }) => {
+      const s: any = await dogmaAttribute(attribute_id);
+      return s;
+    },
+    allDogmaEffects: async (_source: any, { first }: { first?: number }) => {
+      const ids: number[] = await request(dogmaEffectsURL());
+      if (first !== undefined) {
+        return ids.slice(0, first);
+      }
+      return ids;
+    },
+
+    dogmaEffect: async (_source: any, { effect_id }: { effect_id: string }) => {
+      const s: any = await dogmaEffect(effect_id);
+      return s;
+    },
+  },
+
+  EVEDogmaAttributeConnection: {
+    attribute_id: (id: any) => id,
+    attribute: (id: any) => dogmaAttribute(id),
+  },
+  EVEDogmaEffectConnection: {
+    effect_id: (id: any) => id,
+    effect: (id: any) => dogmaEffect(id),
+  },
+  EVEUniverseTypeDogmaAttributeConnection: {
+    attribute: (dogma_attributes_item: any) => dogmaAttribute(dogma_attributes_item.attribute_id),
+  },
+  EVEUniverseTypeDogmaEffectConnection: {
+    effect: (dogma_effects_item: any) => dogmaEffect(dogma_effects_item.effect_id),
   },
   EVESystemConnection: {
     system_id: (id: any) => id,
-    system: (id: any) => system(id),
+    system: (id: any) => universeSystem(id),
   },
   EVEPositionXYZ: {
     x: (self: any) => self.x.toString(),
@@ -32,23 +96,23 @@ export const resolvers = {
     z: (self: any) => self.z.toString(),
   },
   EVEPlanet: {
-    system: (self: any) => system(self.system_id), // todo
+    systemConnection: (self: any) => self.system_id,
   },
-  EVESystemPlanet: {
-    planet: (self: any) => planet(self.planet_id),
+  EVEPlanetConnection: {
+    planet: (self: any) => universePlanet(self.planet_id),
   },
   EVESystemPlanetMoon: {
     moon_id: (id: any) => id,
-    moon: (id: any) => stargate(id),
+    moon: (id: any) => universeMoons(id),
   },
   EVEStargate: {
-    destination_system: (self: any) => system(self.destination.system_id),
-    destination_stargate: (self: any) => stargate(self.destination.stargate_id),
-    system: (self: any) => system(self.system_id),
+    destinationSystemConnection: (self: any) => self.destination.system_id,
+    destinationStargate: (self: any) => self.destination.stargate_id,
+    systemConnection: (self: any) => self.system_id,
   },
-  EVESystemStargate: {
+  EVEStargateConnection: {
     stargate_id: (id: any) => id,
-    stargate: (id: any) => stargate(id),
+    stargate: (id: any) => universeStargate(id),
   },
   EVESystem: {
     security_status_rough: (system: any) => Math.round(system.security_status * 10) / 10,
